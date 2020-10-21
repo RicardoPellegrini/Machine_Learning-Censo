@@ -30,13 +30,13 @@ classe = base.iloc[:, 14].values
 from sklearn.preprocessing import LabelEncoder
 
 
-# In[6]:
+# In[5]:
 
 
 labelencoder_previsores = LabelEncoder()
 
 
-# In[7]:
+# In[6]:
 
 
 previsores[:, 1] = labelencoder_previsores.fit_transform(previsores[:, 1])
@@ -49,33 +49,33 @@ previsores[:, 9] = labelencoder_previsores.fit_transform(previsores[:, 9])
 previsores[:, 13] = labelencoder_previsores.fit_transform(previsores[:, 13])
 
 
-# In[9]:
+# In[7]:
 
 
 # Adicionando as variáveis dummies para as variáveis categóricas
 from sklearn.preprocessing import OneHotEncoder
 
 
-# In[10]:
+# In[8]:
 
 
 onehotencoder = OneHotEncoder(categorical_features=[1,3,5,6,7,8,9,13])
 previsores = onehotencoder.fit_transform(previsores).toarray()
 
 
-# In[12]:
+# In[9]:
 
 
 labelencoder_classe = LabelEncoder()
 
 
-# In[13]:
+# In[10]:
 
 
 classe = labelencoder_classe.fit_transform(classe)
 
 
-# In[18]:
+# In[11]:
 
 
 # Verificando números de linhas e colunas das colunas previsoras e da classe
@@ -83,21 +83,34 @@ print(previsores.shape)
 print(classe.shape)
 
 
-# In[20]:
+# In[12]:
 
 
 # Escalonamento de vetores por padronização
 from sklearn.preprocessing import StandardScaler
 
 
-# In[21]:
+# In[13]:
 
 
 scaler = StandardScaler()
 
 
-# In[23]:
+# In[14]:
 
 
 previsores = scaler.fit_transform(previsores)
+
+
+# In[15]:
+
+
+# Dividindo os dados em treino e teste
+from sklearn.model_selection import train_test_split
+
+
+# In[17]:
+
+
+previsores_train, previsores_test, classe_train, classe_test = train_test_split(previsores, classe, test_size=0.15, random_state=0)
 
